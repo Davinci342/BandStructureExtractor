@@ -23,8 +23,9 @@ for BandIteration in range(0,BandNumber):
     return line    
 while not '\n\n':
                 if True:#trying to get program to recognize spin up and spin down lines
-                    fh.read('Spin.Up')
+                    fh.readline('Spin.Up')
                     store in ArrayUp  #this might only store the lines that define the bands, not the actual lines that contain data
+                    fh.readline()
                     if
                 else:
                     store in ArrayDown
