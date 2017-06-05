@@ -13,7 +13,7 @@ ArrayUp = np.spinup[BandNumber].reshape[BandNumber,2]
 ArrayDown = np.spindown[BandNumber].reshape[BandNumber,2]
 
 for BandIteration in range(0,BandNumber):
-    fh.read(line)
+    fh.readoline()
     def chop_comment(line):#need to look over
         in_quote = False
         backslash_escape = False
