@@ -11,10 +11,10 @@ BandNumber= 1641
 c_comment = '#'
 char == Spin.Up
 ArrayUp = np.spinup[BandNumber].reshape[BandNumber,2]
-ArrayDown = np.spindown[BandNumber].reshape[2,BandNumber]
+ArrayDown = np.spindown[BandNumber].reshape[BandNumber,2]
 
 for BandIteration in range(0,BandNumber):
-
+    
     fh.read(line)
     
 while not '\n\n':
