@@ -31,11 +31,11 @@ for BandIteration in range(0,BandNumber):
                     #np.save in ArrayUp  #this might only store the lines that define the bands, not the actual lines that contain data
                 else:
                     np.save in ArrayDown
-                    if False:
+                    #if False:
                         #fh.readline('comment')
                         #np.save in ArrayDown
-return ArrayUp
-return ArrayDown
+                    return ArrayUp
+                    return ArrayDown
 print (ArrayUp)
 print (ArrayDown)
 fh.close()
