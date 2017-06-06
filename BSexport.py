@@ -19,9 +19,10 @@ for BandIteration in range(0,BandNumber):
         for i, ch in enumerate(line):
             if not in_quote and ch == c_comment:
                 return line[:i]
-    return
-if True:
-       fh.readline('c_comment')
+            return line[:i]
+        return line[:i]
+    if True:
+        fh.readline('c_comment')
         while not '\n\n':
                 if True:#trying to get program to recognize spin up and spin down lines
                     fh.readline('Spin.Up')
