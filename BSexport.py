@@ -9,8 +9,10 @@ fh = open("test.txt","r")
 import numpy as np
 BandNumber= 200,324
 c_comment = '#'
-ArrayUp = np.spinup[BandNumber].reshape[BandNumber,2]
-ArrayDown = np.spindown[BandNumber].reshape[BandNumber,2]
+ArrayUp = np.array[BandNumber].reshape[BandNumber,1]
+ArrayDown = np.array[BandNumber].reshape[BandNumber,1]
+#ArrayK = np.array[] /this needs to be defined for the k-points
+#note: ideally we will want to replace these predefined values with input functions for the user
 
 for BandIteration in range(0,BandNumber):
     #fh.readline()
