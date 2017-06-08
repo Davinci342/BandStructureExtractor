@@ -47,12 +47,14 @@ for BandIteration in range(0,BandNumber):
         BandIteration = BandIteration + 1
 x = ArrayUp.element
 y = ArrayDown.element
-if True:#need to change;this is incorrect syntax
-    -2 < x < 2
-    ArrayUp2 = ArrayUp.Where([x]).ToArray()
-if True:
-    -2 < y < 2
-    ArrayDown2 = ArrayDown.Where([x]).ToArray()
+for x in range(ArrayUp)#might need to change
+    if :#how do we ge this to check the value located in the element?
+        ArrayUp2 = ArrayUp.Where([x]).ToArray()
+        np.save in ArrayUp2
+for y in range(ArrayDown)#might need to change
+    if :
+    ArrayDown2 = ArrayDown.Where([y]).ToArray()
+    np.save in ArrayDown2
 print (ArrayUp2)
 print (ArrayDown2)
 fh.close()
