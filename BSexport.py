@@ -45,16 +45,18 @@ for BandIteration in range(0,BandNumber):
         else:
             pass
         BandIteration = BandIteration + 1
-x = ArrayUp.element
-y = ArrayDown.element
+x = 0
 for x in range(ArrayUp)#might need to change
     if :#how do we ge this to check the value located in the element?
         ArrayUp2 = ArrayUp.Where([x]).ToArray()
         np.save in ArrayUp2
+        x = x + 1
+y = 0
 for y in range(ArrayDown)#might need to change
     if :
     ArrayDown2 = ArrayDown.Where([y]).ToArray()
     np.save in ArrayDown2
+    y = y + 1
 print (ArrayUp2)
 print (ArrayDown2)
 fh.close()
