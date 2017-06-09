@@ -5,58 +5,38 @@ Created on Mon Jun  5 12:26:42 2017
 @author: MaterialsTheory
 """
 
-fh = open("test.txt","r") 
-import numpy as np
-BandNumber= 200,324
-ArrayUp = np.array[BandNumber].reshape[BandNumber,1]
-ArrayDown = np.array[BandNumber].reshape[BandNumber,1]
+fh = open("test.txt","r")
+BS = open("bandstructure.txt","w")
+up = open("spinup.txt","w")
+dn = open("spindown.txt","w")
+c_comment = '#'
 #ArrayK = np.array[] /this needs to be defined for the k-points
 #note: ideally we will want to replace these predefined values with input functions for the user
-
-for BandIteration in range(0,BandNumber):
-    #fh.readline()
-    #def chop_comment(line):#need to look over
-        #in_quote = False
-        #for i, ch in enumerate(line):
-            #if not in_quote and ch == c_comment:
-                #return line[:i]
-            #return line[:i]
-        #return line[:i]
-        fh.readline()
-        line = fh.readline()
-        if '#' in line:
-            while not '\n\n':
-                fh.readline()
-                if 'Spin.Up' in line:#trying to get program to recognize spin up and spin down lines
-                    np.save in ArrayUp
-                    while not '\n\n':
-                        fh.readline()
-                        if '    ' in line:
-                            line.split()
-                            np.save in ArrayUp
-                else:
-                    if 'Spin.Down' in line:
-                        np.save in ArrayDown
-                        while not '\n\n':
-                            fh.readline()
-                            if '    ' in line:
-                                line.split()
-                                np.save in ArrayDown
-        else:
-            pass
-        BandIteration = BandIteration + 1
-x = 0
-for x in range(ArrayUp)#might need to change
-    if :#how do we ge this to check the value located in the element?
-        ArrayUp2 = ArrayUp.Where([x]).ToArray()
-        np.save in ArrayUp2
-        x = x + 1
-y = 0
-for y in range(ArrayDown)#might need to change
-    if :
-    ArrayDown2 = ArrayDown.Where([y]).ToArray()
-    np.save in ArrayDown2
-    y = y + 1
-print (ArrayUp2)
-print (ArrayDown2)
+fh.readlines()
+for line in fh:
+    if c_comment in line:
+        if 'Spin.Up' in line:
+            BS.write(line)
+        elif 'Spin.Down' in line:
+            BS.write(line)
+    if '    ' in line:
+            float(line.split())
+            if [1] in range(-2,2):
+                BS.write(line)
 fh.close()
+fh_ = open("bandstructure.txt","r")
+fh_.readlines()
+for line in fh_:
+    if c_comment in line:
+        if 'Spin.Up' in line:
+            up.write(line)
+    if '    ' in line:
+        up.write(line)
+fh_.readlines()
+for line in fh_:
+    if c_comment in line:
+        if 'Spin.Down' in line:
+            dn.write(line)
+    if '    ' in line:
+        dn.write(line)
+fh_.close()
