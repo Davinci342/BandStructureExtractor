@@ -9,34 +9,26 @@ fh = open("test.txt","r")
 BS = open("bandstructure.txt","w")
 up = open("spinup.txt","w")
 dn = open("spindown.txt","w")
-c_comment = '#'
+BSlist = []
+CBSlist = []
+Testlist = []
+i = 0
+j = i+1
+
+
 #ArrayK = np.array[] /this needs to be defined for the k-points
 #note: ideally we will want to replace these predefined values with input functions for the user
-fh.readlines()
 for line in fh:
-    if c_comment in line:
-        if 'Spin.Up' in line:
-            BS.write(line)
-        elif 'Spin.Down' in line:
-            BS.write(line)
-    if '    ' in line:
-            float(line.split())
-            if [1] in range(-2,2):
-                BS.write(line)
+    fh.readline()
+    if line.startswith('\n'):
+        pass
+    else:
+        BSlist.append(line)
+for i in BSlist: 
+    while i <= 30:
+        list(line.split(BSlist[i]))
+        if [1] in range(-2,2):
+            CBSlist.append(BSlist[i:i+30])
+            break
 fh.close()
-fh_ = open("bandstructure.txt","r")
-fh_.readlines()
-for line in fh_:
-    if c_comment in line:
-        if 'Spin.Up' in line:
-            up.write(line)
-    if '    ' in line:
-        up.write(line)
-fh_.readlines()
-for line in fh_:
-    if c_comment in line:
-        if 'Spin.Down' in line:
-            dn.write(line)
-    if '    ' in line:
-        dn.write(line)
-fh_.close()
+BS.close()
