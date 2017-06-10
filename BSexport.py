@@ -24,11 +24,15 @@ for line in fh:
         pass
     else:
         BSlist.append(line)
-for i in BSlist: 
-    while i <= 30:
-        list(line.split(BSlist[i]))
-        if [1] in range(-2,2):
-            CBSlist.append(BSlist[i:i+30])
-            break
+def next():
+    global i
+    if (i <= 30):
+        while i <= 30:
+            list(line.split(BSlist[i]))
+            if [1] in range(-2,2):
+                CBSlist.append(BSlist[i:i+30])
+            i = i + 1
+for i in range(len(BSlist[i:i+30])):
+    next()
 fh.close()
 BS.close()
