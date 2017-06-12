@@ -10,9 +10,8 @@ BS = open("bandstructure.txt","w")
 up = open("spinup.txt","w")
 dn = open("spindown.txt","w")
 BSlist = []
-CBSlist = []
-Testlist = []
-i = 0
+list = []
+i = 7564
 j = i+1
 
 
@@ -24,15 +23,14 @@ for line in fh:
         pass
     else:
         BSlist.append(line)
-def next():
-    global i
-    if (i <= 30):
-        while i <= 30:
-            list(line.split(BSlist[i]))
-            if [1] in range(-2,2):
-                CBSlist.append(BSlist[i:i+30])
-            i = i + 1
 for i in range(len(BSlist[i:i+30])):
-    next()
+    if i <= 7594:
+        list.append(line.split(BSlist[i]))
+        print(list)
+        if [2] in range(2,-2):
+            BS.write(("BSlist[i+30]"))
+#            str.index(str, beg=0 end=len(string))
 fh.close()
 BS.close()
+up.close()
+dn.close()
