@@ -32,4 +32,4 @@ for i in range(len(BSlist[i:i+30])):
 fh.close()
 BS.close()
 up.close()
-dn.close()
+dn.close()#edit
