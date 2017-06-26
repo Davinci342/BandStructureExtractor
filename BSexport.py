@@ -1,43 +1,156 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jun  15 06:13:42 2017
+# -*- coding: utf-8 -*
 
-@author: MaterialsTheory
-""" 
+import numpy as np
 
 BSlist = []
-UpList1 = []
-DnList1 = []
-    
-with open("test.txt", "r") as fh: #finds Count (the number of lines of data) for one band.
+
+infilename = str(input("Enter input bandstructure text file-name with the extension (.txt, .log, etc...): "))
+upoutfilename = str(input("Enter output file-name for UP BANDS with extension (.txt, .log, etc...): "))
+downoutfilename = str(input("Enter output file-name for DOWN BANDS with extension (.txt, .log, etc...): "))
+
+
+lwbnd = -3.0
+upbnd = 3.0
+
+
+#Count the total lines for a band
+
+with open(infilename, "r") as fh: 
     Count = 0
     for line in fh:
         if line == '\n':
             break
         Count += 1
-   
-with open("test.txt", "r") as fh: #makes the list from which data is refined
+
+#Copies data into a list
+
+with open(infilename, "r") as fh:
     for line in fh:
         if line != '\n':
-            BSlist.append(line)
+            BSlist.append(line) 
         else:
             continue
 
-x = y = 0 #sorts the data into spin up or spin down, then in required eV range
+#Let's define the number of bands, datapoints per band, and up and down matrices
+bandnum = len(BSlist)//Count//2-1
+datap = Count-1
+UpListx = np.zeros((datap,1))
+UpListy = np.zeros((datap,bandnum))
+
+DnListx = np.zeros((datap,1))
+DnListy = np.zeros((datap,bandnum))
+
+#break the list up into energy (listx) and k-matrix (listy) for both up and down bands
+        
+x = y = 0
+q=-1
 for x in range(0,len(BSlist)):
     if 'Spin.Up' in BSlist[x]:
+        q=q+1        
+        w=0
         for y in range (x+1,x+(Count)):
-            if (float(BSlist[y].split()[1]) >= -2.0) and (float(BSlist[y].split()[1]) <= 2.0):
-                UpList1.extend(BSlist[x:(x+(Count))])
-                x = ((x // Count) * (Count)) + Count
+            if x == 0:
+                UpListx[y-1,0] = BSlist[y].split()[0]
+                DnListx[y-1,0] = BSlist[y].split()[0]
                 continue
-    if 'Spin.Down' in BSlist[x]:
-        for y in range (x+1,x+(Count)):
-            if (float(BSlist[y].split()[1]) >= -2.0) and (float(BSlist[y].split()[1]) <= 2.0):
-                DnList1.extend(BSlist[x:(x+(Count))])
-                x = ((x // Count) * (Count)) + Count
-                continue          
+            UpListy[w,q-1] = BSlist[y].split()[1]
+            w=w+1
+            continue
+        x = x + Count
 
+x = y = 0
+q=-1
+for x in range(0,len(BSlist)):
+    if 'Spin.Down' in BSlist[x]:
+        q=q+1        
+        w=0
+        for y in range (x+1,x+(Count)):
+            DnListy[w,q-1] = BSlist[y].split()[1]
+            w=w+1
+            continue
+        x = x + Count
+
+#determine total number of up bands in energy range
+
+totband=0
+for z in range(0,bandnum):
+    h=0
+    for x in range(0,datap):
+        if UpListy[x,z] >= lwbnd and UpListy[x,z] <= upbnd:
+            h=1
+            continue
+    if h == 1:
+        totband=totband+1
+        continue
+
+dumpbin = np.zeros((datap,1))
+outbin = np.zeros((datap,totband))
+
+#print them out
+
+j=-1
+for z in range(0,bandnum):
+    h=0
+    for x in range(0,datap):
+        dumpbin[x,0]=UpListy[x,z]
+        if dumpbin[x,0] >= lwbnd and dumpbin[x,0] <= upbnd:
+            h=1
+            continue
+    if h == 1:
+        j = j+1
+        for y in range(0,datap):
+            outbin[y,j] = dumpbin[y,0]
+            continue
+
+with open(upoutfilename, "w") as up:
+    for x in range(0,datap):
+        s = str(UpListx[x,0])
+        for z in range(0,totband):
+            s = s + '\t' + str(outbin[x,z])
+            continue
+        s = s + '\n'
+        up.write(s)
+
+#determine total number of down bands in energy range
+
+totband=0
+for z in range(0,bandnum):
+    h=0
+    for x in range(0,datap):
+        if DnListy[x,z] >= lwbnd and DnListy[x,z] <= upbnd:
+            h=1
+            continue
+    if h == 1:
+        totband=totband+1
+        continue
+
+dumpbin = np.zeros((datap,1))
+outbin = np.zeros((datap,totband))
+
+#print them out
+
+j=-1
+for z in range(0,bandnum):
+    h=0
+    for x in range(0,datap):
+        dumpbin[x,0]=DnListy[x,z]
+        if dumpbin[x,0] >= lwbnd and dumpbin[x,0] <= upbnd:
+            h=1
+            continue
+    if h == 1:
+        j = j+1
+        for y in range(0,datap):
+            outbin[y,j] = dumpbin[y,0]
+            continue
+
+with open(downoutfilename, "w") as up:
+    for x in range(0,datap):
+        s = str(DnListx[x,0])
+        for z in range(0,totband):
+            s = s + '\t' + str(outbin[x,z])
+            continue
+        s = s + '\n'
+        up.write(s)
 UpList2 = []#changing to csv form
 x = y = 0
 for x in range(0,Count):
